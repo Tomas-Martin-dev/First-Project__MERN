@@ -1,0 +1,11 @@
+{
+  "name": "apv-backend",
+  "version": "1.0.0",
+  "description": "First Proyecto MERN",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node app.js"   
+  },
+  "author": "Tomas Martin",
+  "license": "ISC"
+}
