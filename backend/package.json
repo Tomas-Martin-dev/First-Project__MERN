@@ -1,11 +1,20 @@
 {
   "name": "apv-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "First Proyecto MERN",
   "main": "index.js",
   "scripts": {
-    "dev": "node app.js"   
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "Tomas Martin",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }
