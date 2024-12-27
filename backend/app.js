@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 import conectarDB from "./config/db.js";
 import veterinarioRoutes from "./routes/veterinarioRoutes.js";
@@ -8,6 +9,21 @@ const app = express(); /* inicializa en una variable a Express */
 app.use(express.json()); /* Middleware que permite a la app procesar datos en formato JSON */
 
 dotenv.config(); /* Carga las variables definidas en un archivo .env para usarlas con process.env */
+
+// dominios permitidos
+const dominiosPermitidos = [process.env.URL];
+
+const corsOptions = {
+    origin: function(origin,callback) {
+        if (dominiosPermitidos.indexOf(origin) !== -1) {
+            callback(null,true)
+        }else{
+            callback(new Error("No permitido por Cors"))
+        }
+    }
+};
+
+app.use(cors(corsOptions));
 
 const PORT =  process.env.PORT || 4000;
 
@@ -22,3 +38,4 @@ app.use("/api/paciente", pacienteRoutes);
 
 // funcion para conectar la DB
 conectarDB();
+

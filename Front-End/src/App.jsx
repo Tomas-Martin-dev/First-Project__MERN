@@ -4,6 +4,7 @@ import Login from "./paginas/Login";
 import Registrar from "./paginas/Registrar";
 import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
 import OlvidePassword from "./paginas/OlvidePassword";
+import NuevoPassword from "./paginas/nuevoPassword";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="registrar" element={< Registrar />} />
           <Route path="confirmar-cuenta/:id" element={< ConfirmarCuenta />} />
           <Route path="recuperar-password" element={< OlvidePassword />} />
+          <Route path="recuperar-password/:token" element={< NuevoPassword />} />
         </Route>
       </Routes>
     </BrowserRouter>

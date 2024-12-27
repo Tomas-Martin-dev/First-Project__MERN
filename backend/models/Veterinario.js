@@ -38,13 +38,24 @@ const veterinarioSchema = mongoose.Schema({
 });
 
 // hash de password
-veterinarioSchema.pre("save", async function(next) {
-    if (!this.isModified("password")) { /* este if cumple la funcion de ignorar un password que ya este hasheado, si el usuario quiere cmabiar datos de cuenta al password lo va a ignorar osea no lo va a volver a hashear */
-        next();
+veterinarioSchema.pre("save", async function (next) {
+    // Verifica si el password no fue modificado
+    if (!this.isModified("password")) {
+        return next();
     }
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    
+
+    // Verifica que el password no sea undefined o vacío
+    if (!this.password) {
+        throw new Error("password undefined");
+    }
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (error) {
+        next(error);
+    }
 });
 
 // comprobar password ya hasheado
