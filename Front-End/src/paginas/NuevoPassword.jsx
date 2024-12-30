@@ -20,7 +20,6 @@ const nuevoPassword = () => {
         setTokenOk(true)
       } catch (error) {
         console.log(error);
-        setAlerta({ msg: "Hubo un error - Token no valido", error: true });
         setTokenOk(false)
       }
     }

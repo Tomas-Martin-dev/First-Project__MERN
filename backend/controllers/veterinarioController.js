@@ -34,7 +34,7 @@ const registrar = async (req,res) =>{
 const perfil = (req,res)=> {
     const {veterinario} = req
     
-    res.send({ perfil : veterinario})
+    res.send(veterinario)
 };
 
 const confirmar = async (req,res)=> {
@@ -57,10 +57,11 @@ const confirmar = async (req,res)=> {
 };
 
 const autenticar = async (req,res)=> {
-    const {email, password} = req.body;
+    const {email, contraseña} = req.body;
+    
+    const usuario = await Veterinario.findOne({email}); // busco usuario en la base de datos
     
     // Verificar que el user existe
-    const usuario = await Veterinario.findOne({email});
     if (!usuario) {
         const error = new Error("El usuario no existe");
         return  res.status(403).json({msg: error.message});
@@ -73,10 +74,15 @@ const autenticar = async (req,res)=> {
     }
 
     // Verificar que el password esta bien
-    if (await usuario.comprobarPassword(password)) {
+    if (await usuario.comprobarPassword(contraseña)) {
         console.log("pass correcto!!");
-        // Autenticado el user creamos un jsonWebToken
-        res.json( {token: generarJWT(usuario.id)} )
+        // Autenticado retornamos los datos no sensibles del user y creamois un token con JWT
+        res.json({
+            _id: usuario._id,
+            nombre: usuario.nombre,
+            email: usuario.email,
+            token: generarJWT(usuario.id)
+        })
     }else{
         const error = new Error("El password es incorrecto");
         return  res.status(403).json({msg: error.message});
