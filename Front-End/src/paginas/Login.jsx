@@ -48,14 +48,17 @@ const Login = () => {
         />
       </div>
 
-      <div className="bg-white mx-2 lg:mx-8 px-4 lg:px-8 py-10 rounded-lg shadow-xl">
+      <div className="bg-white mx-2 lg:mx-8 px-4 lg:px-32 py-10 rounded-lg shadow-xl flex flex-col">
 
-        <h1 className="text-cyan-600 text-4xl font-bold text-center">
-          Inicia Sesión y Administra tus
-          <span className="text-gray-600"> Pacientes</span>
+        <h1 className="text-indigo-600 text-4xl font-bold text-center">
+        Inicia Sesión
         </h1>
 
-        <form action="" className=" flex flex-col gap-5 mt-7" onSubmit={handleSubmit}>
+        <h3 className="text-gray-600 text-2xl font-normal text-center mt-3">Administra tus Pacientes</h3>
+
+        <div className=" ">
+
+        <form action="" className=" flex flex-col gap-6 px-5" onSubmit={handleSubmit}>
 
         {msg && <Alerta
           alerta={alerta}
@@ -91,12 +94,12 @@ const Login = () => {
           <input
             type="submit"
             value="Ingresar"
-            className="w-full md:max-w-72 mx-auto bg-indigo-600 text-white border rounded-xl py-2 px-12 uppercase hover:bg-indigo-700 hover:cursor-pointer"
+            className="w-full mx-auto bg-indigo-600 text-white border rounded-xl py-2 px-12 uppercase hover:bg-indigo-700 hover:cursor-pointer"
           />
 
         </form>
 
-        <nav className="mt-12 lg:flex lg:justify-between">
+        <nav className="lg:flex lg:justify-between px-5 mt-3">
           <Link
             to="/registrar"
             className="my-1 block text-center text-gray-500 hover:text-gray-600"
@@ -108,6 +111,9 @@ const Login = () => {
           >¿Olvidaste tu Contraseña?
           </Link>
         </nav>
+        
+        </div>
+      
       </div>
     </>
   )

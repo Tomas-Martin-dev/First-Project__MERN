@@ -45,7 +45,7 @@ const actualizarPaciente = async (req, res) => {
     const { id } = req.params;
     const { nombre, propietario, telefono, email, diagnostico, fechaAlta} = req.body;
     const paciente = await Paciente.findById(id);
-
+    
     if (!paciente) {
         return  res.json( {mgs: "No se encontro ese paciente en la DB"} )
     }
@@ -55,15 +55,16 @@ const actualizarPaciente = async (req, res) => {
     }
     
     if (paciente) {
+        
         try {
             paciente.nombre =  nombre || paciente.nombre;
-            paciente.prpropietario = propietario || paciente.propietario;
+            paciente.propietario = propietario || paciente.propietario;
             paciente.telefono =  telefono || paciente.telefono;
             paciente.email =  email || paciente.email;
             paciente.diagnostico =  diagnostico || paciente.diagnostico;
             paciente.fechaAlta = fechaAlta || paciente.fechaAlta;
             paciente.save();
-            return res.json({mgs : `paciente actualizado ${paciente}`})
+            return res.json(paciente)
         } catch (error) {
             console.log(error);
         }

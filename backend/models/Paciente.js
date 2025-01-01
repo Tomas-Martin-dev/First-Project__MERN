@@ -20,7 +20,7 @@ const pacienteSchema = mongoose.Schema({
     },
     fechaAlta: {
         type: Date,
-        default: Date.now(),
+        default: Date.now()
     },
     diagnostico: {
         type: String,
