@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/axios";
+import Alerta from "../componentes/Alerta";
 
 const AuhtContext = createContext();
 
@@ -37,13 +38,42 @@ const AuhtProvider = ({ children }) => {
         setAuth({});
     }
 
+    const actulizarPerfil = async (perfilNuevo) =>{
+        const {_id} = perfilNuevo;
+        const token = localStorage.getItem("token");
+        if (!token) {
+            setCargandoAuth(false);
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        };
+    
+        try {
+            await clienteAxios.put(`/veterinario/perfil/${_id}`,{perfilNuevo},config);
+            
+            return {
+                msg: "Datos Actualizados Correctamente"
+            }
+        } catch (error) {
+            return {
+                msg: error.response.data.msg,
+                error: true
+            }
+        }
+    }
+
     return (
         <AuhtContext.Provider
             value={{
                 auth,
                 setAuth,
                 cargandoAuht,
-                cerrarSession
+                cerrarSession,
+                actulizarPerfil
             }}
         >
             {children}

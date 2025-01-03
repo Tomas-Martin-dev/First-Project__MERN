@@ -157,6 +157,34 @@ const modificarPassword =  async (req,res)=> {
     }
 }
 
+const actualizarPerfil = async (req,res)=> {
+    const {id} = req.params;
+    const {perfilNuevo} = req.body;
+    const {email} = perfilNuevo
+
+    const veterinario = await Veterinario.findById(id)
+    
+    if (veterinario.email !== perfilNuevo.email) {
+        const emailExistente = await Veterinario.findOne({email});
+        if (emailExistente) {
+            const error = new Error("Este Email ya esta ocupado");
+            return res.status(400).json({msg: error.message});
+        }
+    }
+
+    try {
+        veterinario.nombre = perfilNuevo.nombre ;        
+        veterinario.email = perfilNuevo.email;        
+        veterinario.telefono = perfilNuevo.telefono;        
+        veterinario.web = perfilNuevo.web;        
+        
+        await veterinario.save();
+        res.send({msg: "Datos Modificados correctamente"})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     registrar,
     perfil,
@@ -164,5 +192,6 @@ export {
     autenticar, 
     resetPassword,
     comprobarToken,
-    modificarPassword
+    modificarPassword,
+    actualizarPerfil
 }

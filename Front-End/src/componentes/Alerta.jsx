@@ -1,6 +1,4 @@
 const Alerta = ({alerta}) => {
-    console.log(alerta);
-    
     return (
     <div
         className={`${alerta.error ? "from-red-400 to-red-600" : "from-indigo-400 to-indigo-600"} 

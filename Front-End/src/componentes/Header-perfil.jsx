@@ -13,7 +13,7 @@ const HeaderPerfil = () => {
 
             <nav className='flex flex-col lg:flex-row items-center gap-4 mt-5 lg:mt-0'>
                 <Link to="/admin" className='text-white text-xl'>Pacientes</Link>
-                <Link to="/admin" className='text-white text-xl font-semibold'>Perfil</Link>
+                <Link to="/admin/perfil" className='text-white text-xl font-semibold'>Perfil</Link>
                 <button 
                     className='text-white text-xl font-bold'
                     onClick={cerrarSession}

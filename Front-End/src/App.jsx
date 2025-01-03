@@ -5,8 +5,10 @@ import Login from "./paginas/Login";
 import Registrar from "./paginas/Registrar";
 import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
 import OlvidePassword from "./paginas/OlvidePassword";
-import NuevoPassword from "./paginas/nuevoPassword";
+import NuevoPassword from "./paginas/NuevoPassword";
 import AdministrarPacientes from "./paginas/AdministrarPacientes";
+import EditarPerfil from "./paginas/EditarPerfil";
+import EditarPassword from "./paginas/EditarPassword";
 
 import { AuhtProvider } from "./context/AuthProvider";
 import { PacienteProvider } from "./context/PacienteProvider";
@@ -29,6 +31,8 @@ function App() {
 
             <Route path="/admin" element={<RutaAdmin />} >
               <Route index element={<AdministrarPacientes />} />
+              <Route path="perfil" element={<EditarPerfil />} />
+              <Route path="editar-password" element={<EditarPassword />} />
             </Route>
           </Routes>
         </PacienteProvider>

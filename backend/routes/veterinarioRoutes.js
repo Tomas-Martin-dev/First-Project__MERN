@@ -1,5 +1,5 @@
 import express from "express";
-import {registrar, perfil, confirmar, autenticar, resetPassword, comprobarToken, modificarPassword} from "../controllers/veterinarioController.js";
+import {registrar, perfil, confirmar, autenticar, resetPassword, comprobarToken, modificarPassword, actualizarPerfil} from "../controllers/veterinarioController.js";
 import checkAuth from "../middleware/authMiddleware.js";
 
 const router =  express.Router();
@@ -17,6 +17,7 @@ router.route("/reset-password/:token").get(comprobarToken).post(modificarPasswor
 
 // Area Privada
 router.get("/perfil", checkAuth, perfil);
+router.put("/perfil/:id", checkAuth, actualizarPerfil)
 
 
 

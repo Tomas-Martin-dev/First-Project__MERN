@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Alerta from "../componentes/Alerta";
 import clienteAxios from '../config/axios';
 
-const nuevoPassword = () => {
+const NuevoPassword = () => {
   const [contraseña, setContraseña] = useState("");
   const [repetirContraseña, setRepetirContraseña] = useState("");
   const [alerta, setAlerta] = useState("");
   const [tokenOk, setTokenOk] = useState(false);
   const [contraseñaUpdate, setContraseñaUpdate] = useState(false);
 
+  const navigation = useNavigate()
 
   // Validar token
   const { token } = useParams();
@@ -43,12 +44,16 @@ const nuevoPassword = () => {
     }
 
     try {
+      
       const url = `/veterinario/reset-password/${token}`
       await clienteAxios.post(url, { contraseña });
       setContraseñaUpdate(true);
+      
       setAlerta({ msg: "Contraseña actuliazada", error: false });
+      setTimeout(() => {
+        navigation("/");
+      }, 2000);
     } catch (error) {
-      console.log(error);
       console.log(error.response.data.msg);
       setContraseñaUpdate(false);
     }
@@ -103,16 +108,10 @@ const nuevoPassword = () => {
           <input
             type="submit"
             value="Registrarte"
-            className="w-full md:max-w-72 mx-auto bg-indigo-600 text-white border rounded-xl py-2 px-12 uppercase hover:bg-indigo-700 hover:cursor-pointer"
+            className="w-full md:max-w-72 mx-auto bg-indigo-600 text-white border rounded-xl py-2 px-12 uppercase hover:bg-indigo-700 hover:cursor-pointer transition-colors"
           />
 
         </form>
-
-        {contraseñaUpdate && (<Link
-          to="/"
-          className=" mt-12 block text-center text-xl text-gray-700"
-        >Iniciar Session
-        </Link>)}
 
       </div>}
 
@@ -126,7 +125,7 @@ const nuevoPassword = () => {
         >Ocurrio un error al intentar validar su usuario, vuelva a intentarlo mas tarde</p>
         <Link
           to="/recuperar-password"
-          className="my-3 block text-center text-gray-500"
+          className="my-3 block text-center text-gray-500 hover:text-gray-600"
         >Restablecer Contraseña
         </Link>
       </div>}
@@ -135,4 +134,4 @@ const nuevoPassword = () => {
   )
 }
 
-export default nuevoPassword
+export default NuevoPassword
